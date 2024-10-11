@@ -1,0 +1,47 @@
+{% extends 'admin_templates/base_template.html' %}
+{% block page_title %} Percentage of Attendance of {{name.first_name}}  {% endblock page_title %}
+{% block main_content %}
+{% load static %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-primary">
+
+
+                      <div class="card-header" stle="display:flex;justify-content:center;align_items:center">
+                          <h3>Number of Presences: {{ stud_attendance}}/{{total_attendances}}</h3>
+                          <h3>Percentage of attendances:{{pourcentage_attendance}}</h3>
+                          <h3>Is he/she eligible to do exam:
+                                {% if pourcentage_attendance >= 75 %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                          </h3>
+
+                      </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+
+                         </div>
+                    <!-- /.card-body -->
+
+
+
+
+            </div>
+
+                  <!-- general form elements -->
+
+            <!-- /.card -->
+
+              </div>
+
+          </div>
+
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

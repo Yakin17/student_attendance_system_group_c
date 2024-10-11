@@ -1,0 +1,113 @@
+{% extends 'admin_templates/base_template.html' %}
+{% block page_title %} Edit Attendance | Subject: {{ subject.subject_name }}, Date: {{date_att}} {% endblock page_title %}
+{% block main_content %}
+{% load static %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-primary">
+
+                      <div class="card-header">
+                        <h3 class="card-title">Edit Attendance</h3>
+                      </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+
+                         <form role="form" action="/edit_attendance_save" method="POST">
+                              {% csrf_token %}
+                              <div class="card-body">
+
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <input type="date" class="form-control" name="date_appel" value="{{date_att}}" readonly>
+                                        <input type="text" class="form-control" name="attendance_id" value={{att_id}} style="display: none;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Subject name</label>
+
+                                        <input type="text" class="form-control" name="subject_name" value={{subject.subject_name}} disabled>
+                                        <input type="text" class="form-control" name="subject_id" value={{subject.id}} style="display: none;">
+
+
+                                      <table>
+                                        <thead>
+                                          <tr>
+                                            <th>
+                                              Student
+                                            </th>
+                                              <th>
+
+                                              </th>
+                                            <th>
+                                              Presence
+                                            </th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            {% for attendance in attendances %}
+
+                                          <td>
+                                              {{ attendance.student_id.first_name }} {{ attendance.student_id.last_name }}
+                                          </td>
+                                          <td>
+                                            <input type="checkbox" name="student_id" value="{{ attendance.student_id_id }}" checked style="display: none;">
+                                          </td>
+
+                                           <td>
+                                               <select class="form-control" name="presence" style="margin:10px" >
+                                                  <option value="A"  {% if attendance.attendance == "A" %} selected {% endif %}>A</option>
+                                                  <option value="P" {% if attendance.attendance == "P" %} selected {% endif %}>P</option>
+                                               </select>
+                                           </td>
+
+
+                                        </tr>
+
+                                        {% endfor %}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="form-group">
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                            {% if message.tags == 'error' %}
+                                        <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                        {% endif %}
+                                        {% if message.tags == 'success' %}
+                                        <div class="alert alert-success " style="margin-top:10px">{{ message }}</div>
+                                        {% endif %}
+
+                                        {% endfor %}
+                                        {% endif %}
+
+                                        </div>
+                                    </div>
+
+
+
+                      </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                  </form>
+
+            </div>
+
+                  <!-- general form elements -->
+
+            <!-- /.card -->
+
+              </div>
+
+          </div>
+
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
